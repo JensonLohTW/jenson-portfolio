@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && mkdir -p out/blog && echo '<html><head><meta http-equiv=\"refresh\" content=\"0;url=/jenson-portfolio/blog\"></head></html>' > out/blog/index.html",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint"
   },

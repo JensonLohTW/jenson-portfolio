@@ -1,0 +1,205 @@
+1:"$Sreact.fragment"
+2:I[9304,["758","static/chunks/758-3bcd6ff5a5923bb7.js","408","static/chunks/408-66a5df6a6d14ce44.js","278","static/chunks/278-d31066b752c7d284.js","177","static/chunks/app/layout-fbcf3b1566eedd93.js"],"ThemeProvider"]
+3:I[7555,[],""]
+4:I[1295,[],""]
+5:I[4999,["758","static/chunks/758-3bcd6ff5a5923bb7.js","408","static/chunks/408-66a5df6a6d14ce44.js","278","static/chunks/278-d31066b752c7d284.js","177","static/chunks/app/layout-fbcf3b1566eedd93.js"],"default"]
+6:I[6985,["758","static/chunks/758-3bcd6ff5a5923bb7.js","408","static/chunks/408-66a5df6a6d14ce44.js","411","static/chunks/411-7991859ddd7a6620.js","278","static/chunks/278-d31066b752c7d284.js","53","static/chunks/53-9934314193d96501.js","171","static/chunks/171-acc09b53c59aa7f6.js","584","static/chunks/app/blog/layout-01ee848eb08dbc98.js"],"default"]
+7:I[3336,["758","static/chunks/758-3bcd6ff5a5923bb7.js","408","static/chunks/408-66a5df6a6d14ce44.js","411","static/chunks/411-7991859ddd7a6620.js","278","static/chunks/278-d31066b752c7d284.js","53","static/chunks/53-9934314193d96501.js","171","static/chunks/171-acc09b53c59aa7f6.js","584","static/chunks/app/blog/layout-01ee848eb08dbc98.js"],"default"]
+8:I[9010,["758","static/chunks/758-3bcd6ff5a5923bb7.js","408","static/chunks/408-66a5df6a6d14ce44.js","411","static/chunks/411-7991859ddd7a6620.js","278","static/chunks/278-d31066b752c7d284.js","53","static/chunks/53-9934314193d96501.js","171","static/chunks/171-acc09b53c59aa7f6.js","584","static/chunks/app/blog/layout-01ee848eb08dbc98.js"],"default"]
+9:I[9332,["758","static/chunks/758-3bcd6ff5a5923bb7.js","411","static/chunks/411-7991859ddd7a6620.js","866","static/chunks/866-25cce1e60117ff8d.js","567","static/chunks/app/blog/%5Bid%5D/page-8831c654aa77ec0f.js"],"default"]
+b:I[9665,[],"OutletBoundary"]
+e:I[9665,[],"ViewportBoundary"]
+10:I[9665,[],"MetadataBoundary"]
+12:I[6614,[],""]
+:HL["/jenson-portfolio/_next/static/media/a34f9d1faa5f3315-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/jenson-portfolio/_next/static/css/cfe42278c063ec95.css","style"]
+a:T12ae,
+# 大型語言模型在企業應用中的實踐
+
+隨著 GPT-4、Claude 和 Llama 等大型語言模型（LLMs）的發展，企業有了前所未有的機會來改革其業務流程和客戶體驗。本文將探討如何有效地將這些模型整合到企業應用中。
+
+## LLMs 在企業中的應用場景
+
+### 1. 客戶服務自動化
+
+大型語言模型可以處理客戶查詢、解決常見問題，並在需要時將複雜問題升級給人工客服：
+
+```typescript
+// 簡化的客服聊天機器人實現
+async function handleCustomerQuery(query: string): Promise<string> {
+  // 1. 分析查詢意圖
+  const intent = await analyzeIntent(query);
+  
+  // 2. 根據意圖處理查詢
+  if (intent.confidence > 0.8) {
+    if (intent.type === 'simple_question') {
+      return await generateAnswer(query);
+    } else if (intent.type === 'complex_issue') {
+      await createSupportTicket(query);
+      return "您的問題需要進一步處理，我已創建一個支持工單，我們的團隊將盡快與您聯繫。";
+    }
+  }
+  
+  // 3. 回退策略
+  return "很抱歉，我無法完全理解您的問題。您能否提供更多詳情，或者您希望與客服人員交談嗎？";
+}
+
+async function analyzeIntent(query: string) {
+  const response = await llmClient.complete({
+    prompt: `分析以下客戶查詢的意圖：
+
+"${query}"
+
+意圖類型：`,
+    max_tokens: 50
+  });
+  
+  // 解析回應並確定意圖類型和置信度
+  // ...
+}
+```
+
+### 2. 內容生成與管理
+
+LLMs 可以協助生成營銷文案、產品描述、報告摘要等內容：
+
+```typescript
+interface ContentRequest {
+  type: 'blog_post' | 'product_description' | 'email_campaign';
+  topic: string;
+  targetAudience: string;
+  keyPoints: string[];
+  tone: 'formal' | 'casual' | 'technical';
+  length: 'short' | 'medium' | 'long';
+}
+
+async function generateContent(request: ContentRequest): Promise<string> {
+  const prompt = buildPromptFromRequest(request);
+  
+  const response = await llmClient.complete({
+    prompt,
+    max_tokens: getMaxTokensForLength(request.length),
+    temperature: getToneTemperature(request.tone)
+  });
+  
+  return postProcessContent(response.text);
+}
+```
+
+### 3. 數據分析與洞察
+
+LLMs 可以幫助分析和解釋複雜的業務數據：
+
+```typescript
+async function analyzeBusinessData(data: any, question: string): Promise<{
+  answer: string;
+  visualization?: string;
+  confidence: number;
+}> {
+  // 將數據轉換為模型可理解的格式
+  const formattedData = formatDataForLLM(data);
+  
+  // 構建提示
+  const prompt = `基於以下數據：
+
+${formattedData}
+
+回答問題：${question}
+
+`;
+  
+  // 獲取模型回應
+  const response = await llmClient.complete({
+    prompt,
+    max_tokens: 500
+  });
+  
+  // 解析回應
+  return parseAnalysisResponse(response.text);
+}
+```
+
+## 整合 LLMs 的最佳實踐
+
+### 1. 提示工程（Prompt Engineering）
+
+設計有效的提示是成功使用 LLMs 的關鍵：
+
+- 提供清晰的指示和上下文
+- 使用示例（少樣本學習）
+- 分解複雜任務為多個步驟
+
+### 2. 處理模型局限性
+
+- 實施事實檢查機制
+- 設計回退策略
+- 建立人工審核流程
+
+### 3. 優化成本和性能
+
+```typescript
+// 實現緩存機制減少 API 調用
+class LLMCache {
+  private cache: Map<string, { response: string, timestamp: number }> = new Map();
+  private ttl: number; // 緩存生存時間（毫秒）
+  
+  constructor(ttlInMinutes: number = 60) {
+    this.ttl = ttlInMinutes * 60 * 1000;
+  }
+  
+  async getResponse(prompt: string, generateFn: () => Promise<string>): Promise<string> {
+    const cacheKey = this.hashPrompt(prompt);
+    const cached = this.cache.get(cacheKey);
+    
+    // 檢查緩存是否有效
+    if (cached && Date.now() - cached.timestamp < this.ttl) {
+      return cached.response;
+    }
+    
+    // 生成新回應
+    const response = await generateFn();
+    
+    // 更新緩存
+    this.cache.set(cacheKey, {
+      response,
+      timestamp: Date.now()
+    });
+    
+    return response;
+  }
+  
+  private hashPrompt(prompt: string): string {
+    // 實現哈希函數
+    // ...
+  }
+}
+```
+
+## 常見挑戰與解決方案
+
+### 1. 數據隱私與安全
+
+- 使用本地部署的模型
+- 實施數據脫敏技術
+- 遵循監管要求
+
+### 2. 模型偏見與公平性
+
+- 多樣化訓練數據
+- 實施偏見檢測
+- 持續監控和改進
+
+### 3. 用戶體驗設計
+
+- 設置適當的用戶期望
+- 提供透明的錯誤處理
+- 設計自然的對話流程
+
+## 結論
+
+大型語言模型為企業應用帶來了革命性的可能性，但成功整合需要仔細的規劃和實施。通過遵循最佳實踐並解決常見挑戰，企業可以充分利用這些強大的 AI 工具，提升效率、改善客戶體驗並創造新的業務價值。
+    0:{"P":null,"b":"5gZJtCaB-ZrEK7JenoNC6","p":"/jenson-portfolio","c":["","blog","ai-enterprise-applications",""],"i":false,"f":[[["",{"children":["blog",{"children":[["id","ai-enterprise-applications","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/jenson-portfolio/_next/static/css/cfe42278c063ec95.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"zh-TW","suppressHydrationWarning":true,"children":["$","body",null,{"className":"__className_14da81","children":["$","$L2",null,{"attribute":"class","defaultTheme":"system","enableSystem":true,"children":[["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L5",null,{}]]}]}]}]]}],{"children":["blog",["$","$1","c",{"children":[null,["$","div",null,{"className":"relative min-h-screen overflow-hidden bg-background","children":[["$","$L6",null,{}],["$","$L7",null,{}],["$","main",null,{"className":"relative z-10 min-h-screen pt-16","children":["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]}],["$","$L8",null,{}]]}]]}],{"children":[["id","ai-enterprise-applications","d"],["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L4",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L9",null,{"post":{"id":"ai-enterprise-applications","title":"大型語言模型在企業應用中的實踐","excerpt":"探討如何將 GPT 等大型語言模型整合到企業應用中，包括最佳實踐和常見挑戰。","content":"$a","date":"2023-10-10","author":{"name":"Jenson Chen","avatar":"/avatar.png"},"tags":["AI","大型語言模型","企業應用"],"readTime":12},"relatedPosts":[]}],"$undefined",null,["$","$Lb",null,{"children":["$Lc","$Ld",null]}]]}],{},null,false]},null,false]},null,false]},[null,[],[]],false],["$","$1","h",{"children":[null,["$","$1","RoKDFWGPRgN03R20XZGZO",{"children":[["$","$Le",null,{"children":"$Lf"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],["$","$L10",null,{"children":"$L11"}]]}],false]],"m":"$undefined","G":["$12","$undefined"],"s":false,"S":true}
+f:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+c:null
+d:null
+11:[["$","title","0",{"children":"Jenson Loh - 懂技術的產品經理"}],["$","meta","1",{"name":"description","content":"Jenson Loh 的個人網站，展示產品管理能力、技術理解和專業經驗。"}],["$","meta","2",{"name":"generator","content":"v0.dev"}]]
