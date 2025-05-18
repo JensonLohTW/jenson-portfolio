@@ -13,6 +13,16 @@ import { Card, CardContent } from "@/components/ui/card"
 import ReactMarkdown from "react-markdown"
 
 /**
+ * 生成所有博客文章的静态参数
+ * 这个函数是在构建时运行的，用于预生成所有可能的博客文章页面
+ */
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    id: post.id,
+  }))
+}
+
+/**
  * 博客文章詳情頁面
  *
  * 顯示單篇博客文章的完整內容，包括標題、作者、日期、標籤和正文
