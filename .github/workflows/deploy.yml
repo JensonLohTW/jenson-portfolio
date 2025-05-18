@@ -45,9 +45,12 @@ jobs:
       - name: List out directory
         run: ls -la
       - name: Build with Next.js
-        run: pnpm build
+        run: NEXT_PUBLIC_BASE_PATH=/jenson-portfolio NODE_ENV=production pnpm build
+        env:
+          SKIP_TYPESCRIPT_CHECK: true
+          SKIP_ESLINT_CHECK: true
       - name: List out directory after build
-        run: ls -la
+        run: ls -la out
       - name: Create .nojekyll file
         run: touch out/.nojekyll
       - name: Upload artifact

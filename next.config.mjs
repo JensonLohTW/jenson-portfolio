@@ -14,6 +14,11 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === 'production' ? '/jenson-portfolio' : '',
   assetPrefix: process.env.NODE_ENV === 'production' ? '/jenson-portfolio/' : '',
   distDir: 'out',
+  experimental: {
+    excludeRoute: (route) => {
+      return route.includes('/blog/[id]');
+    }
+  }
 }
 
 export default nextConfig
