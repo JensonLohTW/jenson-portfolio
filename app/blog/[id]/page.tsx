@@ -1,9 +1,10 @@
-import { blogPosts, type BlogPost } from "@/data/blog-posts"
+import { blogPosts } from "@/data/blog-posts"
 import BlogPostClient from "./blog-post-client"
-import { generateStaticParams as getParams } from "./generateParams"
 
-// 导出生成静态参数函数
-export const generateStaticParams = getParams
+// 在构建时生成所有博客文章的静态参数
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({ id: post.id }))
+}
 
 /**
  * 博客文章详情页面 - 服务器组件
